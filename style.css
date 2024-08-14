@@ -1,0 +1,398 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@700&display=swap');
+
+:root {
+    --color_bg: #e0e5eb;
+    --gradient: linear-gradient(to right, #81B3ECFF, #2F94E0FF);
+    --grey: #f0f0f0;
+    --transition: all 0.3s ease-in-out;
+}
+
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Rubik", sans-serif;
+    background-color: var(--color_bg);
+    height: 100vh;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    user-select: none
+
+}
+
+.mobile {
+    width: 350px;
+    height: 730px;
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: -5px 5px 10px rgba(0, 0, 0, 0.3);
+    display: grid;
+    grid-template-rows: 48px 1fr 62px;
+
+}
+
+.mobile__content {
+    width: 350px;
+}
+
+.mobile__top,
+.mobile__bottom {
+    align-self: center;
+    justify-self: center;
+}
+
+.rooms {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin: 0 20px;
+    justify-content: center;
+    gap: 16px;
+    align-items: center;
+    height: 90%;
+}
+
+.settings {
+    display: none;
+}
+
+.room,
+.settings__type {
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    text-align: center;
+    background: var(--grey);
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.room {
+    grid-template-rows: 145px 30px;
+}
+
+.settings__type {
+    grid-template-rows: 2fr 1fr;
+}
+
+
+.room {
+    font-size: 16px;
+}
+
+.settings__type {
+    font-size: 12px;
+}
+
+.room.selected,
+.settings__type.selected {
+    background: var(--gradient);
+    color: #fff;
+}
+
+.room.selected svg,
+.settings__type.selected svg {
+    fill: #fff;
+    opacity: 1;
+}
+
+.room svg,
+.settings__type svg {
+    align-self: center;
+    opacity: 0.7;
+}
+
+/*UI components*/
+.selectbox {
+    width: 143px;
+    margin: 0 auto 25px;
+    position: relative;
+    cursor: pointer;
+}
+
+.selectbox svg {
+    transform: rotate(0deg);
+    transition: var(--transition);
+}
+
+.selectbox.open svg {
+    transform: rotate(-180deg);
+}
+
+.selectbox__selected {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 10px;
+    position: relative;
+    z-index: 2;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.selectbox__list {
+    list-style: none;
+    padding-inline: 12px;
+    border-radius: 3px;
+    position: absolute;
+    top: 0;
+    left: -12px;
+    right: -12px;
+    z-index: 1;
+    max-height: 0;
+    overflow: hidden;
+    background-color: #fff;
+    transition: var(--transition);
+}
+
+.selectbox.open .selectbox__list {
+    top: 120%;
+    max-height: 300px;
+    padding-bottom: 8px;
+}
+
+.selectbox__item {
+    padding-block: 4px;
+}
+
+.selectbox__item.selected,
+.selectbox__item:active {
+    color: #a894e6;
+}
+
+.selectbox__item:not(:last-child) {
+    margin-bottom: 4px;
+}
+
+/*Страница натсроек комнаты*/
+
+
+.settings__tabs {
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 100px;
+    gap: 14px;
+}
+
+.settings__screen {
+    display: none;
+}
+
+.settings__screen.selected {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 5px;
+}
+
+.settings__screen-title {
+    text-align: center;
+    margin: 30px 0 15px;
+    font-size: 16px;
+    font-weight: 300;
+
+}
+
+/*кнопка регулировки температуры*/
+.temperature-button {
+    position: relative;
+    width: 240px;
+    aspect-ratio: 1;
+    margin: 0 auto;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    cursor: pointer;
+}
+
+.temperature-button__info {
+    position: relative;
+    font-size: 32px;
+    width: 70%;
+    aspect-ratio: 1;
+    border-radius: 80%;
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.temperature-button__info::before {
+    position: absolute;
+    display: block;
+    content: '';
+    left: 4%;
+    right: 4%;
+    top: 4%;
+    bottom: 4%;
+    border-radius: 100%;
+    opacity: 0.3;
+    border: 1px solid #000;
+}
+
+.dots-box {
+    transform: rotate(5deg);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.dots,
+.line,
+.line-active,
+.round,
+.separate-line,
+.separate-dots {
+    fill: transparent;
+    stroke: var(--grey);
+    stroke-width: 3px;
+    stroke-linecap: round;
+    stroke-dasharray: 0 21;
+    transition: all 0.1s;
+}
+
+.line,
+.line-active,
+.round {
+    stroke-dasharray: 276 276;
+    stroke-width: 1px;
+    transform: rotate(48deg); /*от -240 до 48 град*/
+    transform-origin: center;
+}
+
+.line-active {
+    stroke: black;
+    stroke-dasharray: 54 276; /*с 54 до 276*/
+}
+
+.round {
+    stroke-width: 6px;
+    stroke-dasharray: 0 276;
+    transform: rotate(-240deg); /*от -240 до 48 град*/
+}
+
+.separate-line,
+.separate-dots {
+    stroke: #ffffff;
+    transform-origin: center;
+
+}
+
+.separate-dots {
+    transform: rotate(60deg);
+    stroke-dasharray: 40 313;
+}
+
+.separate-line {
+    transform: rotate(49deg);
+    stroke-dasharray: 53 313;
+}
+
+/*Power*/
+.power {
+    background: var(--gradient);
+    width: 40px;
+    aspect-ratio: 1;
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 2px;
+}
+
+.power.off {
+    background: #c2c1c1;
+}
+
+.power svg {
+    fill: #fff;
+}
+
+.power-label {
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.save-button {
+    background: var(--gradient);
+    color: #fff;
+    width: 250px;
+    margin-top: 15px;
+    border-radius: 100px;
+    border: none;
+    padding: 16px;
+    cursor: pointer;
+}
+
+
+.settings__screen-icon svg {
+    opacity: 0.7;
+    margin-bottom: 10px;
+}
+
+/*Кнопка насыщенности*/
+.slider {
+    position: relative;
+    width: 100px;
+    height: 250px;
+    background-color: var(--grey);
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.slider__progress {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--gradient);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    min-height: 30px;
+    max-height: 100%;
+    height: 45%;
+    pointer-events: none;
+}
+
+.slider__progress span {
+    user-select: none
+}
+
+/*Switch*/
+.switch {
+    position: relative;
+    width: 60px;
+    height: 28px;
+    border-radius: 60px;
+    background-color: var(--grey);
+    margin-top: 25px;
+    cursor: pointer;
+}
+
+.switch.off div {
+    left: 0;
+    background: #c2c1c1;
+}
+
+.switch div {
+    position: absolute;
+    left: 52%;
+    top: 0;
+    width: 28px;
+    aspect-ratio: 1;
+    border-radius: 28px;
+    background: var(--gradient);
+    transition: var(--transition);
+}
